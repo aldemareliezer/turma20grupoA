@@ -1,0 +1,91 @@
+import random
+
+def bem_vindo():
+    print("Bem-vindo! Prepare-se para testar seus conhecimentos sobre programação. Boa Sorte")
+    num_jogadores = int(input("Digite o número de jogadores (até 4): "))
+    jogadores = [input(f"Digite o nome do Jogador {i+1}: ") for i in range(num_jogadores)]
+    return jogadores
+
+def criar_quizz():
+    perguntas = [
+        {"pergunta": "Qual é a linguagem de programação deste quizz?",
+         "alternativas": {"A": "Java", "B": "C++", "C": "Python", "D": "Ruby"},
+         "resposta_correta": "C"},
+    ]
+    perguntas += [
+        {"pergunta": "Qual destes não é um tipo de dado em Python?",
+         "alternativas": {"A": "String", "B": "Boolean", "C": "Float", "D": "Tudo é tipo de dado em Python"},
+         "resposta_correta": "D"},
+        {"pergunta": "Qual é a tag utilizada para inserir uma imagem em HTML?",
+           "alternativas": {"A": "<img>", "B": "<picture>", "C": "<image>", "D": "<src>"},
+           "resposta_correta": "A"},
+
+          {"pergunta": "O que significa a sigla CSS em relação a HTML?",
+           "alternativas": {"A": "Computer Style Sheets", "B": "Cascading Style Sheets", 
+          "C": "Content Style Sheets", "D": "Creative Style Sheets"},
+           "resposta_correta": "B"},
+
+          {"pergunta": "Qual é a tag correta para criar uma lista ordenada em HTML?",
+           "alternativas": {"A": "<ol>", "B": "<ul>", "C": "<li>", "D": "<list>"},
+           "resposta_correta": "A"},
+
+          {"pergunta": "Qual é a tag utilizada para criar um link em HTML?",
+           "alternativas": {"A": "<link>", "B": "<a>", "C": "<href>", "D": "<url>"},
+           "resposta_correta": "B"},
+
+          {"pergunta": "Como você define o título de uma página HTML?",
+           "alternativas": {"A": "<title>", "B": "<header>", "C": "<h1>", "D": "<head>"},
+           "resposta_correta": "A"},
+          {"pergunta": "Qual tag é usada para criar uma lista não ordenada em HTML?",
+           "alternativas": {"A": "<ol>", "B": "<ul>", "C": "<li>", "D": "<list>"},
+           "resposta_correta": "B"},
+
+          {"pergunta": "Em HTML, como você insere uma quebra de linha?",
+           "alternativas": {"A": "<break>", "B": "<br>", "C": "<lb>", "D": "<newline>"},
+           "resposta_correta": "B"},
+
+          {"pergunta": "Como você concatena duas strings em Python?",
+           "alternativas": {"A": "strcat()", "B": "merge()", "C": "concat()", "D": "O operador '+'"},
+           "resposta_correta": "D"},
+
+          {"pergunta": "O que é um loop 'for'?",
+           "alternativas": {"A": "Uma estrutura condicional", "B": "Um loop de repetição", "C": "Uma função matemática", "D": "Um operador lógico"},
+           "resposta_correta": "B"},
+
+          {"pergunta": "Qual é a principal função do comando 'if' em Python?",
+           "alternativas": {"A": "Definir uma função", "B": "Iterar sobre uma lista", "C": "Executar um bloco de código condicionalmente", "D": "Declarar uma variável"},
+           "resposta_correta": "C"},
+          {"pergunta": "O que representa o operador '%' em Python?",
+           "alternativas": {"A": "Multiplicação", "B": "Divisão", "C": "Módulo", "D": "Exponenciação"},
+           "resposta_correta": "C"},
+
+          {"pergunta": "O que é uma lista em Python?",
+           "alternativas": {"A": "Um tipo de dado numérico", "B": "Um conjunto de caracteres", "C": "Uma estrutura de dados que armazena elementos ordenados", "D": "Uma função integrada"},
+           "resposta_correta": "C"},
+    ]
+    random.shuffle(perguntas)
+    return perguntas
+
+def jogar_quizz(jogadores, perguntas):
+    pontuacoes = {jogador: 0 for jogador in jogadores}
+    for pergunta in perguntas:
+        print("\n" + pergunta["pergunta"])
+        for opcao, resposta in pergunta["alternativas"].items():
+            print(f"{opcao}. {resposta}")
+        resposta_jogadores = {}
+        for jogador in jogadores:
+            resposta_jogadores[jogador] = input(f"{jogador}, escolha a opção correta: ").upper()
+        for jogador, resposta_jogador in resposta_jogadores.items():
+            if resposta_jogador == pergunta["resposta_correta"]:
+                pontuacoes[jogador] += 1
+    print("\nJogo concluído! Pontuações finais:")
+    for jogador, pontuacao in pontuacoes.items():
+        print(f"{jogador}: {pontuacao} pontos")
+
+def main():
+    jogadores = bem_vindo()
+    perguntas = criar_quizz()
+    jogar_quizz(jogadores, perguntas)
+
+if __name__ == "__main__":
+    main()
