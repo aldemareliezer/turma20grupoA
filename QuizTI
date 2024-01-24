@@ -4,10 +4,15 @@ def bem_vindo():
     print("Bem-vindo! Prepare-se para testar seus conhecimentos sobre programação. Boa Sorte")
     num_jogadores = 0
      ## ----> Desconsiderando essa linha nesse momento de codigo para testar condicionais. ( Passar tratamento de excessões )
+     
     while num_jogadores <= 0 or num_jogadores > 4:
+        try:
             num_jogadores = int(input("Digite o número de jogadores (até 4): ")) 
             if num_jogadores <= 0 or num_jogadores > 4:
                 print("Por favor, insira um numero válido de jogadores (1 a 4)")
+        except ValueError:
+            print("Por favor, insira um numero valido")
+            
     jogadores = [input(f"'Digite o nome do Jogador {i+1}: ") for i in range(num_jogadores)]
     # [input(f"Digite o nome do Jogador {i+1}: ") for i in range(num_jogadores)]
     return jogadores
