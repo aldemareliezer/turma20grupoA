@@ -83,6 +83,7 @@ def jogar_quizz(jogadores, perguntas):
         print("\n" + pergunta["pergunta"])
         for opcao, resposta in pergunta["alternativas"].items():
             print(f"{opcao}. {resposta}")
+            
         resposta_jogadores = {}
         for jogador in jogadores:
             resposta_jogadores[jogador] = input(f"{jogador}, escolha a opção correta: ").upper()
@@ -90,6 +91,7 @@ def jogar_quizz(jogadores, perguntas):
             if resposta_jogador == pergunta["resposta_correta"]:
                 pontuacoes[jogador] += 1
     print("\nJogo concluído! Pontuações finais:")
+    
     for jogador, pontuacao in pontuacoes.items():
         print(f"{jogador}: {pontuacao} pontos")
 
