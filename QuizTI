@@ -1,4 +1,6 @@
 import random
+import time
+import threading
 
 def bem_vindo():
     print("Bem-vindo! Prepare-se para testar seus conhecimentos sobre programação. Boa Sorte")
