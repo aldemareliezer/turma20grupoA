@@ -1,1 +1,64 @@
+import random
+
+def boas_vindas():
+    print("Bem-vindo ao jogo dos programadores da turma 20 grupo A!")
+    print("Responda às seguintes perguntas para testar seus conhecimentos em TI.")
+    print()
+
+def fazer_pergunta(pergunta, opcoes, resposta_correta):
+    print(pergunta)
+    
+    for i, opcao in enumerate(opcoes, start=1):
+        print(f"{chr(64 + i)}. {opcao}")
+    
+    while True:
+        resposta_jogador = input("Escolha a opção correta (A, B, C ou D): ").upper()
+
+        if resposta_jogador in ['A', 'B', 'C', 'D']:
+            break
+        else:
+            print("Opção inválida. Por favor, escolha A, B, C ou D.")
+
+    if resposta_jogador == resposta_correta:
+        print("Parabéns! Você acertou!\n")
+        return True
+    else:
+        print("Você não acertou.\n")
+        return False
+
+def main():
+    boas_vindas()
+    
+    perguntas = [
+        {"pergunta": "Qual é a linguagem de programação mais utilizada?", 
+         "opcoes": ["Java", "Python", "C++", "JavaScript"], 
+         "resposta": "B"},
+        {"pergunta": "Qual é a principal função de um banco de dados?", 
+         "opcoes": ["Armazenar dados", "Criar gráficos", "Navegar na internet", "Assistir filmes"], 
+         "resposta": "A"},
+        {"pergunta": "O que significa HTML?", 
+         "opcoes": ["HyperText Markup Language", "High Tech Modern Language", "Hyper Transfer Markup Language", "Home Tool Markup Language"], 
+         "resposta": "A"},
+        {"pergunta": "Qual é a principal característica da programação orientada a objetos?", 
+         "opcoes": ["Herança", "Loops infinitos", "Impressão de documentos", "Manipulação de arquivos"], 
+         "resposta": "A"},
+        {"pergunta": "O que é um algoritmo?", 
+         "opcoes": ["Um tipo de peixe", "Uma receita de bolo", "Um conjunto de passos para resolver um problema", "Um tipo de linguagem de programação"], 
+         "resposta": "C"}
+    ]
+    
+    acertos = 0
+    erros = 0
+    
+    for pergunta_atual in perguntas:
+        if fazer_pergunta(pergunta_atual["pergunta"], pergunta_atual["opcoes"], pergunta_atual["resposta"]):
+            acertos += 1
+        else:
+            erros += 1
+
+    print("\nFim do quiz!")
+    print(f"Você acertou {acertos} pergunta(s) e errou {erros} pergunta(s).")
+
+if __name__ == "__main__":
+    main()
 
