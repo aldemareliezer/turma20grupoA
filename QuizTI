@@ -80,7 +80,7 @@ def criar_quizz():
          "resposta_correta": "C"},
     ]
     random.shuffle(quizz_completo)
-    perguntas = random.sample(quizz_completo, 10)
+    perguntas = random.sample(quizz_completo, 5)
     return perguntas
 
 def jogar_quizz(jogadores, perguntas):
