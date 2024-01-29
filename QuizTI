@@ -23,6 +23,7 @@ def temporizador(timer):
         sys.stdout.write(f"\rTempo restante {i} segundos")
         sys.stdout.flush()
         time.sleep(1)
+    return i
         
 def criar_quizz():
     quizz_completo = [
@@ -99,9 +100,11 @@ def jogar_quizz(jogadores, perguntas):
             print(f"{opcao}. {resposta}")
             
         resposta_jogadores = {}
+        
+        
         for jogador in jogadores:
-            tempo_restante = temporizador(90)
             
+            tempo_restante = temporizador(2)
             resposta_jogador = ""
             
             
