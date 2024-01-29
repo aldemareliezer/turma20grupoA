@@ -20,7 +20,7 @@ def bem_vindo():
 
 def temporizador(timer):
     for i in range(timer, 0, -1):
-        sys.stdout.write(f"Tempo restante {i} segundos")
+        sys.stdout.write(f"\rTempo restante {i} segundos")
         sys.stdout.flush()
         time.sleep(1)
         
@@ -100,9 +100,10 @@ def jogar_quizz(jogadores, perguntas):
             
         resposta_jogadores = {}
         for jogador in jogadores:
+            tempo_restante = temporizador(90)
+            
             resposta_jogador = ""
             
-            tempo_restante = temporizador(90)
             
             while tempo_restante <= 0 or resposta_jogador not in ["A", "B", "C", "D"]:
                 resposta_jogador = input(f"{jogador} escolha a opção correta (A, B, C ou D): ").upper()
