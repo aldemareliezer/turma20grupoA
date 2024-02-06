@@ -1,82 +1,246 @@
 import random
+import time
+import threading
+import sys
 
 def bem_vindo():
     print("Bem-vindo! Prepare-se para testar seus conhecimentos sobre programação. Boa Sorte")
     num_jogadores = 0
-
+     
     while num_jogadores <= 0 or num_jogadores > 4:
         try:
             num_jogadores = int(input("Digite o número de jogadores (até 4): ")) 
             if num_jogadores <= 0 or num_jogadores > 4:
-                print("Por favor, insira um numero válido de jogadores (1 a 4)")
+                print("Por favor, insira um número válido de jogadores (1 a 4)")
         except ValueError:
-            print("Por favor, insira um numero valido")
-
-    jogadores = [input(f"'Digite o nome do Jogador {i+1}: ") for i in range(num_jogadores)]
+            print("Por favor, insira um número válido")
+            
+    jogadores = [input(f"Digite o nome do Jogador {i+1}: ") for i in range(num_jogadores)]
     return jogadores
 
 def criar_quizz():
     quizz_completo = [
-        {"pergunta": "Qual é a linguagem de programação deste quizz?",
-         "alternativas": {"A": "Java", "B": "C++", "C": "Python", "D": "Ruby"},
-         "resposta_correta": "C"},
+    {
+        "pergunta": "Qual é a linguagem de programação deste quizz?",
+         "alternativas": {
+             "A": "Java", 
+             "B": "C++", 
+             "C": "Python", 
+             "D": "Ruby"},
+         "resposta_correta": "C"
+    },
+    {
+        "pergunta": "Qual destes não é um tipo de dado em Python?",
+         "alternativas": {
+             "A": "String", 
+             "B": "Boolean", 
+             "C": "Float", 
+             "D": "Tudo é tipo de dado em Python"},
+         "resposta_correta": "D"
+    },
+    {
+        "pergunta": "Qual é a tag utilizada para inserir uma imagem em HTML?",
+         "alternativas": {
+             "A": "<img>", 
+             "B": "<picture>", 
+             "C": "<image>", 
+             "D": "<src>"},
+         "resposta_correta": "A"
+    },
+    {
+        "pergunta": "O que significa a sigla CSS em relação a HTML?",
+         "alternativas": {
+             "A": "Computer Style Sheets", 
+             "B": "Cascading Style Sheets",
+             "C": "Content Style Sheets", 
+             "D": "Creative Style Sheets"},
+         "resposta_correta": "B"
+    },
+    {
+        "pergunta": "Qual é a tag correta para criar uma lista ordenada em HTML?",
+         "alternativas": {
+             "A": "<ol>", 
+             "B": "<ul>", 
+             "C": "<li>", 
+             "D": "<list>"},
+         "resposta_correta": "A"
+    },
+    {
+        "pergunta": "Qual é a tag utilizada para criar um link em HTML?",
+         "alternativas": {
+             "A": "<link>", 
+             "B": "<a>", 
+             "C": "<href>", 
+             "D": "<url>"},
+         "resposta_correta": "B"
+    },
+    {
+        "pergunta": "Como você define o título de uma página HTML?",
+         "alternativas": {
+             "A": "<title>", 
+             "B": "<header>", 
+             "C": "<h1>", 
+             "D": "<head>"},
+         "resposta_correta": "A"
+    },
+    {
+        "pergunta": "Qual tag é usada para criar uma lista não ordenada em HTML?",
+         "alternativas": {
+             "A": "<ol>", 
+             "B": "<ul>", 
+             "C": "<li>", 
+             "D": "<list>"},
+         "resposta_correta": "B"
+    },
+    {
+        "pergunta": "Em HTML, como você insere uma quebra de linha?",
+         "alternativas": {
+             "A": "<break>", 
+             "B": "<br>", 
+             "C": "<lb>", 
+             "D": "<newline>"},
+         "resposta_correta": "B"
+    },
+    {
+        "pergunta": "Como você concatena duas strings em Python?",
+         "alternativas": {
+             "A": "strcat()", 
+             "B": "merge()", 
+             "C": "concat()", 
+             "D": "O operador '+'"},
+         "resposta_correta": "D"
+    },
+    {
+        "pergunta": "O que é um loop 'for'?",
+         "alternativas": {
+             "A": "Uma estrutura condicional", 
+             "B": "Um loop de repetição",
+             "C": "Uma função matemática", 
+             "D": "Um operador lógico"},
 
-        {"pergunta": "Qual destes não é um tipo de dado em Python?",
-         "alternativas": {"A": "String", "B": "Boolean", "C": "Float", "D": "Tudo é tipo de dado em Python"},
-         "resposta_correta": "D"},
+         "resposta_correta": "B"
+    },
+    {
+        "pergunta": "Qual é a principal função do comando 'if' em Python?",
+         "alternativas": {
+            "A": "Definir uma função", 
+            "B": "Iterar sobre uma lista",
+            "C": "Executar um bloco de código condicionalmente", 
+            "D": "Declarar uma variável"},
 
-        {"pergunta": "Qual é a tag utilizada para inserir uma imagem em HTML?",
-         "alternativas": {"A": "<img>", "B": "<picture>", "C": "<image>", "D": "<src>"},
-         "resposta_correta": "A"},
+         "resposta_correta": "C"
+    },
+    {
+        "pergunta": "O que representa o operador '%' em Python?",
+         "alternativas": {
+             "A": "Multiplicação", 
+             "B": "Divisão", 
+             "C": "Módulo", 
+             "D": "Exponenciação"},
 
-        {"pergunta": "O que significa a sigla CSS em relação a HTML?",
-         "alternativas": {"A": "Computer Style Sheets", "B": "Cascading Style Sheets",
-                          "C": "Content Style Sheets", "D": "Creative Style Sheets"},
-         "resposta_correta": "B"},
+         "resposta_correta": "C"
+    },
+    {
+        "pergunta": "O que é uma lista em Python?",
+         "alternativas": {
+            "A": "Um tipo de dado numérico", 
+            "B": "Um conjunto de caracteres",
+            "C": "Uma estrutura de dados que armazena elementos ordenados", 
+            "D": "Uma função integrada"},
 
-        {"pergunta": "Qual é a tag correta para criar uma lista ordenada em HTML?",
-         "alternativas": {"A": "<ol>", "B": "<ul>", "C": "<li>", "D": "<list>"},
-         "resposta_correta": "A"},
-
-        {"pergunta": "Qual é a tag utilizada para criar um link em HTML?",
-         "alternativas": {"A": "<link>", "B": "<a>", "C": "<href>", "D": "<url>"},
-         "resposta_correta": "B"},
-
-        {"pergunta": "Como você define o título de uma página HTML?",
-         "alternativas": {"A": "<title>", "B": "<header>", "C": "<h1>", "D": "<head>"},
-         "resposta_correta": "A"},
-
-        {"pergunta": "Qual tag é usada para criar uma lista não ordenada em HTML?",
-         "alternativas": {"A": "<ol>", "B": "<ul>", "C": "<li>", "D": "<list>"},
-         "resposta_correta": "B"},
-
-        {"pergunta": "Em HTML, como você insere uma quebra de linha?",
-         "alternativas": {"A": "<break>", "B": "<br>", "C": "<lb>", "D": "<newline>"},
-         "resposta_correta": "B"},
-
-        {"pergunta": "Como você concatena duas strings em Python?",
-         "alternativas": {"A": "strcat()", "B": "merge()", "C": "concat()", "D": "O operador '+'"},
-         "resposta_correta": "D"},
-
-        {"pergunta": "O que é um loop 'for'?",
-         "alternativas": {"A": "Uma estrutura condicional", "B": "Um loop de repetição",
-                          "C": "Uma função matemática", "D": "Um operador lógico"},
-         "resposta_correta": "B"},
-
-        {"pergunta": "Qual é a principal função do comando 'if' em Python?",
-         "alternativas": {"A": "Definir uma função", "B": "Iterar sobre uma lista",
-                          "C": "Executar um bloco de código condicionalmente", "D": "Declarar uma variável"},
-         "resposta_correta": "C"},
-        
-        {"pergunta": "O que representa o operador '%' em Python?",
-         "alternativas": {"A": "Multiplicação", "B": "Divisão", "C": "Módulo", "D": "Exponenciação"},
-         "resposta_correta": "C"},
-
-        {"pergunta": "O que é uma lista em Python?",
-         "alternativas": {"A": "Um tipo de dado numérico", "B": "Um conjunto de caracteres",
-                          "C": "Uma estrutura de dados que armazena elementos ordenados", "D": "Uma função integrada"},
-         "resposta_correta": "C"},
-    ]
+         "resposta_correta": "C"
+    },
+    {
+        "pergunta": "O que é uma variável em programação?",
+        "alternativas": {
+            "A": "Um bloco de código condicional",
+            "B": "Um tipo de dado numérico",
+            "C": "Um valor que pode ser armazenado e manipulado",
+            "D": "Uma instrução para repetir um bloco de código"},
+        "resposta_correta": "C"
+    },
+    {
+        "pergunta": "Qual é a principal função do comando 'for' em Python?",
+        "alternativas": {
+            "A": "Definir uma função",
+            "B": "Iterar sobre uma lista",
+            "C": "Executar um bloco de código condicionalmente",
+            "D": "Declarar uma variável"},
+        "resposta_correta": "B"
+    },
+    {
+        "pergunta": "O que é um dicionário em Python?",
+        "alternativas": {
+            "A": "Uma estrutura de dados que armazena pares chave-valor",
+            "B": "Uma estrutura de dados que armazena elementos ordenados",
+            "C": "",
+            "D": "Um tipo de dado numérico"},
+        "resposta_correta": "A"
+    },
+    {
+        "pergunta": "O que faz a função 'print()' em Python?",
+        "alternativas": {
+            "A": "Executa um bloco de código condicionalmente",
+            "B": "Declara uma variável",
+            "C": "Exibe mensagens ou valores na saída padrão",
+            "D": "Calcula a raiz quadrada de um número"},
+        "resposta_correta": "C"
+    },
+    {
+        "pergunta": "O que é uma função em Python?",
+        "alternativas": {
+            "A": "Um tipo de dado numérico",
+            "B": "Um conjunto de caracteres",
+            "C": "Um comando para condicionar a execução de um bloco de código",
+            "D": "Um bloco de código reutilizável que executa uma tarefa específica"},
+        "resposta_correta": "D"
+    },
+    {
+        "pergunta": "Qual é a principal função do comando 'if' em Python?",
+        "alternativas": {
+            "A": "Definir uma função",
+            "B": "Iterar sobre uma lista",
+            "C": "Executar um bloco de código condicionalmente",
+            "D": "Declarar uma variável"},
+        "resposta_correta": "C"
+    },
+    {
+        "pergunta": "O que é uma lista em Python?",
+        "alternativas": {
+            "A": "Um tipo de dado numérico",
+            "B": "Um conjunto de caracteres",
+            "C": "Uma estrutura de dados que armazena elementos ordenados",
+            "D": "Uma função integrada"},
+        "resposta_correta": "C"
+    },
+    {
+        "pergunta": "O que é um módulo em Python?",
+        "alternativas": {
+            "A": "Um arquivo contendo definições e declarações em Python",
+            "B": "Um tipo de dado numérico",
+            "C": "Uma estrutura de dados que armazena elementos ordenados",
+            "D": "Uma função integrada"},
+        "resposta_correta": "A"
+    },
+    {
+        "pergunta": "O que é uma string em Python?",
+        "alternativas": {
+            "A": "Um tipo de dado numérico",
+            "B": "Um conjunto de caracteres",
+            "C": "Uma estrutura de dados que armazena elementos ordenados",
+            "D": "Uma função integrada"},
+        "resposta_correta": "B"
+    },
+    {
+        "pergunta": "O que é uma tupla em Python?",
+        "alternativas": {
+            "A": "Um tipo de dado numérico",
+            "B": "Uma função integrada",
+            "C": "Uma estrutura de dados imutável que armazena elementos ordenados",
+            "D": "Um conjunto de caracteres"},
+        "resposta_correta": "B"
+    }
+]
 
     random.shuffle(quizz_completo)
     perguntas = random.sample(quizz_completo, 5)
@@ -84,19 +248,31 @@ def criar_quizz():
 
 def jogar_quizz(jogadores, perguntas):
     pontuacoes = {jogador: 0 for jogador in jogadores}
+    
     for pergunta in perguntas:
         print("\n" + pergunta["pergunta"])
         for opcao, resposta in pergunta["alternativas"].items():
             print(f"{opcao}. {resposta}")
+            
         resposta_jogadores = {}
+        
         for jogador in jogadores:
-            resposta_jogadores[jogador] = input(f"{jogador}, escolha a opção correta: ").upper()
+            resposta_jogador = ""
+            while resposta_jogador not in ["A", "B", "C", "D"]:
+                resposta_jogador = input(f"{jogador}, escolha a opção correta (A, B, C ou D): ").upper()
+                if resposta_jogador not in ["A", "B", "C", "D"]:
+                    print("Por favor, insira uma resposta válida")
+                    
+            resposta_jogadores[jogador] = resposta_jogador
+            
         for jogador, resposta_jogador in resposta_jogadores.items():
             if resposta_jogador == pergunta["resposta_correta"]:
                 pontuacoes[jogador] += 1
+                
     print("\nJogo concluído! Pontuações finais:")
     for jogador, pontuacao in pontuacoes.items():
-        print(f"{jogador}: {pontuacao} pontos")
+        porcentagem_acerto = (pontuacao / len(perguntas)) * 100
+        print(f"{jogador}: {pontuacao} pontos {porcentagem_acerto:.2f}% de acerto")
 
 def main():
     jogadores = bem_vindo()
