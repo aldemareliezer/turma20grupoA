@@ -349,7 +349,8 @@ No caso substitui o (perguntas) do c;odigo original pelo (quizz_completo) aonde 
 
 _____________________________________________________________________________________
 
-
+Removido o contador pois o mesmo estava gerando instabilidade no código
+Adicionado mais perguntas ao quiz totalizando 24 questões.
 
     
 
